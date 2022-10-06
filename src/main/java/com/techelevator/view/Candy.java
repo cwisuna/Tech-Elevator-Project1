@@ -4,7 +4,8 @@ import java.util.Map;
 
 public abstract class Candy extends Item {
 
-    public Candy(Map<String, Double> itemAndPrice, int inventory) {
-        super(itemAndPrice, inventory);
+
+    public Candy(String name, double price, int quantity) {
+        super(name, price, quantity);
     }
 }

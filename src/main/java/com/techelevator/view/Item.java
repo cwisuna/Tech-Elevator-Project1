@@ -2,12 +2,19 @@ package com.techelevator.view;
 
 import java.util.Map;
 
-public abstract class Item {
-    public Map<String, Double> itemAndPrice;
-    private int inventory;
+public class Item {
 
-    public Item(Map<String, Double> itemAndPrice, int inventory) {
-        this.itemAndPrice = itemAndPrice;
-        this.inventory = inventory;
+    private String name;
+    private double price;
+    private int quantity;
+
+    public Item(String name, double price, int quantity) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
     }
+
+
+
+
 }
