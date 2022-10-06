@@ -18,9 +18,7 @@ public class VendingMachine{
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_EXIT_OPTION };
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
 
-	static Map<String, Item> mapOfVendingMachine = new HashMap<>();
-
-	public static List listOfItemsAndPrices = new ArrayList();
+	public static Map<String, Item> mapOfVendingMachine = new HashMap<>();
 
 
 
@@ -31,13 +29,12 @@ public class VendingMachine{
 
 		VendingMachine cli = new VendingMachine(menu);
 		readFileAndMappingItems();
-		System.out.println(mapOfVendingMachine);
+
 		System.out.println();
 		cli.run();
 	}
 
 	public VendingMachine(Menu menu) {
-
 		this.menu = menu;
 	}
 
@@ -77,13 +74,34 @@ public class VendingMachine{
 
 		// ===== you nay use/modify the existing Menu class or write your own ======
 		while (true) {
-
 				String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				System.out.println();
+				System.out.print(mapOfVendingMachine.values());
 				 															 // display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				String subChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+//				Purchase newPurchase = new Purchase();
+
+
+				if(choice.equals(PURCHASE_MENU_FEED_OPTION)){
+					// Allow user to feed money into the machine
+//					newPurchase.feedMoney(moneyIn);
+
+
+
+
+				} else if(choice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
+					//Allow user to choose an item
+
+
+				} else if(choice.equals(PURCHASE_MENU_FINISH)){
+					// Return the customer their money, Reset current balance to 0
+
+
+
+					return;
+				}
 																			// do purchase
 			} else if (choice.equals(MAIN_MENU_EXIT_OPTION)){
 				System.exit(1);

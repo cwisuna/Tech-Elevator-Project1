@@ -17,8 +17,13 @@ public class Item {
 
 
 
+    //To String (String Print out when Customer selects 1 from the main menu
 
 
+    @Override
+    public String toString() {
+        return  name + " -> " + quantity + " remaining \n";
+    }
 
     //Getters and Setters
     public String getName() {
@@ -44,6 +49,8 @@ public class Item {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+
 
 
 }
