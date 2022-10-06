@@ -6,11 +6,7 @@ import java.util.Map;
 
 public class Beverages extends Item {
 
-    public Beverages(String name, double price, int quantity) {
-        super(name, price, quantity);
-
-
-
-
+    public Beverages(String name, double price) {
+        super(name, price);
     }
 }
