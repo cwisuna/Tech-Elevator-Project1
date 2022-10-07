@@ -3,6 +3,8 @@ package com.techelevator;
 import com.techelevator.view.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class VendingMachine{
@@ -92,6 +94,16 @@ public class VendingMachine{
 				//if customer chooses purchase, purchase menu is shown to customer
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
+
+				//Writing transaction log to Log.txt
+				File targetFile = new File("src", "Log.txt");
+				SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+				try(PrintWriter writer = new PrintWriter(targetFile)){
+					writer.println(format);
+				} catch (FileNotFoundException e) {
+					System.out.println("File not found");;
+				}
+
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 				//if customer chooses purchase, chooses feed money option
 				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
@@ -101,8 +113,6 @@ public class VendingMachine{
 
 					customerPurchase.feedMoney(amountOfMoney);
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
-
-
 
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
@@ -126,9 +136,11 @@ public class VendingMachine{
 						if(customerPurchase.getCurrentMoneyProvided() >= itemSelection.getPrice()){
 							customerPurchase.purchaseItem(itemSelection.getPrice());
 							itemSelection.dispenseItem();
+
+
 							System.out.println("Remaining total :" + customerPurchase.getCurrentMoneyProvided());
 						} else {
-							System.out.println("Insert More Money to Purchase Ite,");
+							System.out.println("Insert More Money to Purchase Item");
 						}
 
 						//If item is out of Stock, Print Error Message
