@@ -82,7 +82,6 @@ public class VendingMachine{
 
 		// ===== you nay use/modify the existing Menu class or write your own ======
 		while (true) {
-
 			Purchase customerPurchase = new Purchase();
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
@@ -97,12 +96,13 @@ public class VendingMachine{
 				//if customer chooses purchase, purchase menu is shown to customer
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+
+
 				//if customer chooses purchase, chooses feed money option
 				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
-
-
-
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
+
+
 					Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY_CUSTOMER_CAN_ENTER);
 
 
