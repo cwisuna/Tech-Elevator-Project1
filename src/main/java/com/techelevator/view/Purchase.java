@@ -67,6 +67,11 @@ public class Purchase {
 
     }
 
+
+
+
+
+
     //getters
     public double getCurrentMoneyProvided() {
         return currentMoneyProvided;

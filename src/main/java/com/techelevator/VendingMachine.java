@@ -121,9 +121,21 @@ public class VendingMachine{
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
 					System.out.println(itemSelection.getName() + " " + itemSelection.getPrice());
 
-					customerPurchase.purchaseItem(itemSelection.getPrice());
-					itemSelection.dispenseItem();
-					System.out.println("Remaining total :" + customerPurchase.getCurrentMoneyProvided());
+					// If Item Selected is in Stock, Subtract Customer Money and Quantity --1
+					if(itemSelection.getQuantity() > 0){
+						if(customerPurchase.getCurrentMoneyProvided() >= itemSelection.getPrice()){
+							customerPurchase.purchaseItem(itemSelection.getPrice());
+							itemSelection.dispenseItem();
+							System.out.println("Remaining total :" + customerPurchase.getCurrentMoneyProvided());
+						} else {
+							System.out.println("Insert More Money to Purchase Ite,");
+						}
+
+						//If item is out of Stock, Print Error Message
+					} else {
+						System.out.println("Sorry, this item is out of stock.");
+					}
+
 
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){
