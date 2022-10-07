@@ -116,12 +116,14 @@ public class VendingMachine{
 						System.out.println(item.getValue().getLocation() + "| " + item.getValue().getName() + " - $" + item.getValue().getPrice());
 					}
 
-//					Customer selects which item they want from the list of KEYS
+					//Customer selects which item they want from the list of KEYS
+					System.out.print("Please choose a product: ");
 					String chooseLocation = customerInput.nextLine();
+
+
 
 					//Bring in Item class and assign Customer's Selection to Item
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
-
 
 					System.out.println(itemSelection.getName() + " " + itemSelection.getPrice());
 
