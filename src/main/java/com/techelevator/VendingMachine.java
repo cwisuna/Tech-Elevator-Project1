@@ -88,7 +88,7 @@ public class VendingMachine{
 			//if customer chooses display items, Map is shown with items
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				for (Map.Entry<String, Item> item : vendingMachineMap.entrySet()) {
-					System.out.println(item.getValue().toString());
+					System.out.println(item.getValue().toString().trim());
 				}
 
 
