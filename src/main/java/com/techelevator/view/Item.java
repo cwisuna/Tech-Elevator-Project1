@@ -17,6 +17,18 @@ public class Item {
     }
 
 
+
+
+//    public void dispenseItem(){
+//        if(this.quantity > 0){
+//            this.quantity --;
+//        } else {
+//            return "Sorry - This Item is Out of Stock :(";
+//        }
+//
+//    }
+
+
     //Getters and Setters
     public String getName() {
         return name;

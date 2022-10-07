@@ -16,10 +16,8 @@ public class VendingMachine{
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_EXIT_OPTION };
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
 	private static final Double[] MONEY_CUSTOMER_CAN_ENTER = {1.00,2.00,5.00,10.00,20.00};
-	private static final String[] SLOT_POSITION = {"A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"};
-
-
-
+//	private static final String[] SLOT_POSITION = {"A1 Chip Crisp", "A2 - Stackers", "A3 - Grain Waves", "A4 - Cloud Popcorn", "B1 - Moonpie", "B2 - Cowtales", "B3 - Wonka Bar", "B4 - Crunchie", "C1 - Cola", "C2 - Dr. Salt", "C3 - Mountain Melter", "C4 - Heavy", "D1 - U-Chews", "D2 - Little League Chew", "D3 - Chiclets", "D4 - Triplemint"};
+////	private static final String[] test = {vendingMachineMap.toString().}
 
 
 	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
@@ -113,24 +111,22 @@ public class VendingMachine{
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
 
+					//Prints out the List of Items, their location, name, and price
 					for (Map.Entry<String, Item> item : vendingMachineMap.entrySet()) {
 						System.out.println(item.getValue().getLocation() + "| " + item.getValue().getName() + " - $" + item.getValue().getPrice());
-
-
-						String chooseLocation = (String) menu.getChoiceFromOptions(SLOT_POSITION);
-						Item itemChoice;
-						itemChoice.getClass(chooseLocation);
-
-						if(chooseLocation.equals("A1")){
-							System.out.println(itemChoice.getName());
-						}
-
-
-
-
 					}
 
+//					Customer selects which item they want from the list of KEYS
+					String chooseLocation = customerInput.nextLine();
 
+					//Bring in Item class and assign Customer's Selection to Item
+					Item itemSelection = vendingMachineMap.get(chooseLocation);
+
+
+					System.out.println(itemSelection.getName() + " " + itemSelection.getPrice());
+
+
+//					itemSelection.dispenseItem;
 
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){
