@@ -18,8 +18,7 @@ public class VendingMachine{
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_EXIT_OPTION };
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
 	private static final Double[] MONEY_CUSTOMER_CAN_ENTER = {1.00,2.00,5.00,10.00,20.00};
-//	private static final String[] SLOT_POSITION = {"A1 Chip Crisp", "A2 - Stackers", "A3 - Grain Waves", "A4 - Cloud Popcorn", "B1 - Moonpie", "B2 - Cowtales", "B3 - Wonka Bar", "B4 - Crunchie", "C1 - Cola", "C2 - Dr. Salt", "C3 - Mountain Melter", "C4 - Heavy", "D1 - U-Chews", "D2 - Little League Chew", "D3 - Chiclets", "D4 - Triplemint"};
-////	private static final String[] test = {vendingMachineMap.toString().}
+
 
 	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
 
@@ -95,14 +94,14 @@ public class VendingMachine{
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
 
-				//Writing transaction log to Log.txt
-				File targetFile = new File("src", "Log.txt");
-				SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
-				try(PrintWriter writer = new PrintWriter(targetFile)){
-					writer.println(format);
-				} catch (FileNotFoundException e) {
-					System.out.println("File not found");;
-				}
+//				//Writing transaction log to Log.txt
+//				File targetFile = new File("src", "Log.txt");
+//				SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+//				try(PrintWriter writer = new PrintWriter(targetFile)){
+//					writer.println(format);
+//				} catch (FileNotFoundException e) {
+//					System.out.println("File not found");;
+//				}
 
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 				//if customer chooses purchase, chooses feed money option
@@ -112,6 +111,7 @@ public class VendingMachine{
 					Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY_CUSTOMER_CAN_ENTER);
 
 					customerPurchase.feedMoney(amountOfMoney);
+					writeFeedToFile(amountOfMoney, customerPurchase.getCurrentMoneyProvided());
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
 
 
@@ -136,6 +136,7 @@ public class VendingMachine{
 						if(customerPurchase.getCurrentMoneyProvided() >= itemSelection.getPrice()){
 							customerPurchase.purchaseItem(itemSelection.getPrice());
 							itemSelection.dispenseItem();
+							writePurchaseToFile(itemSelection.getName(), itemSelection.getLocation(), itemSelection.getPrice(), customerPurchase.getCurrentMoneyProvided());
 
 
 							System.out.println("Remaining total :" + customerPurchase.getCurrentMoneyProvided());
@@ -153,7 +154,8 @@ public class VendingMachine{
 				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){
 					// Return the customer their money, Reset current balance to 0
 					customerPurchase.getChange();
-					return;
+					writeGiveChangeToFile(customerPurchase.getCurrentMoneyProvided());
+					customerPurchase.setCurrentMoneyProvided(0.00);
 				}
 
 			} else if (choice.equals(MAIN_MENU_EXIT_OPTION)){
@@ -162,6 +164,39 @@ public class VendingMachine{
 
 		}
 
+	}
+	public void writeFeedToFile(double moneyFed, double totalCustomerMoney){
+		//Writing transaction log to Log.txt
+		File targetFile = new File("src", "Log.txt");
+		SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+
+		try(PrintWriter writer = new PrintWriter(targetFile)){
+			writer.println(format + "FEED MONEY: $" + moneyFed + " " + totalCustomerMoney);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");;
+		}
+	}
+	public void writePurchaseToFile(String itemName, String slotNumber, double itemCost, double totalCustomerMoney){
+		//Writing transaction log to Log.txt
+		File targetFile = new File("src", "Log.txt");
+		SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+
+		try(PrintWriter writer = new PrintWriter(targetFile)){
+			writer.println(format + " " + itemName + " " + slotNumber + " " + itemCost + " " + totalCustomerMoney);
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");;
+		}
+	}
+	public void writeGiveChangeToFile(double customerTotalMoney){
+		//Writing transaction log to Log.txt
+		File targetFile = new File("src", "Log.txt");
+		SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+
+		try(PrintWriter writer = new PrintWriter(targetFile)){
+			writer.println(format + "GIVE CHANGE: $" + customerTotalMoney + " $0.00");
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");;
+		}
 	}
 
 }
