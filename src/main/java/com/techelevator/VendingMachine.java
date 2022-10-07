@@ -3,6 +3,7 @@ package com.techelevator;
 import com.techelevator.view.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -168,10 +169,11 @@ public class VendingMachine{
 	public void writeFeedToFile(double moneyFed, double totalCustomerMoney){
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
-		SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
 
-		try(PrintWriter writer = new PrintWriter(targetFile)){
-			writer.println(format + "FEED MONEY: $" + moneyFed + " " + totalCustomerMoney);
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+
+		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+			writer.println(formatter + "FEED MONEY: $" + moneyFed + " " + totalCustomerMoney);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");;
 		}
@@ -179,10 +181,11 @@ public class VendingMachine{
 	public void writePurchaseToFile(String itemName, String slotNumber, double itemCost, double totalCustomerMoney){
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
-		SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
 
-		try(PrintWriter writer = new PrintWriter(targetFile)){
-			writer.println(format + " " + itemName + " " + slotNumber + " " + itemCost + " " + totalCustomerMoney);
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+
+		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+			writer.println(formatter + " " + itemName + " " + slotNumber + " " + itemCost + " " + totalCustomerMoney);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");;
 		}
@@ -190,10 +193,11 @@ public class VendingMachine{
 	public void writeGiveChangeToFile(double customerTotalMoney){
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
-		SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
 
-		try(PrintWriter writer = new PrintWriter(targetFile)){
-			writer.println(format + "GIVE CHANGE: $" + customerTotalMoney + " $0.00");
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+
+		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+			writer.println(formatter + "GIVE CHANGE: $" + customerTotalMoney + " $0.00");
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");;
 		}

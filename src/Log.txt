@@ -1,1 +1,7 @@
-java.text.SimpleDateFormat@fa28f760GIVE CHANGE: $6.95 $0.00
+java.text.SimpleDateFormat@fa28f760 Mountain Melter C3 1.5 3.5
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $5.0 5.0
+java.text.SimpleDateFormat@fa28f760 Wonka Bar B3 1.5 3.5
+java.text.SimpleDateFormat@fa28f760 Triplemint D4 0.75 2.75
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $10.0 10.0
+java.text.SimpleDateFormat@fa28f760 Triplemint D4 0.75 9.25
+java.text.SimpleDateFormat@fa28f760 Little League Chew D2 0.95 8.3
