@@ -3,9 +3,8 @@ package com.techelevator.view;
 import java.util.Map;
 public class Chips extends Item {
 
-
-    public Chips(String name, double price) {
-        super(name, price);
+    public Chips(String location, String name, double price) {
+        super(location, name, price);
     }
 }
 

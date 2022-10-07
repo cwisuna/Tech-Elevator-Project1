@@ -3,13 +3,14 @@ package com.techelevator.view;
 import java.math.BigDecimal;
 
 public class Purchase {
-    public static double currentMoneyProvided;
-    public static double change;
-    public static double moneyNeeded;
 
-    public final double NICKLE = .05;
-    public final double DIME = .10;
-    public final double QUARTER = .25;
+    private double currentMoneyProvided = 0;
+    private double change;
+    private double moneyNeeded;
+
+    private final double NICKEL = .05;
+    private final double DIME = .10;
+    private final double QUARTER = .25;
 
 
 
@@ -33,7 +34,6 @@ public class Purchase {
         }
     }
 
-
     //Determines How Much Change To Return
     public String getChange(double currentMoneyProvided) {
         BigDecimal currentMoney = new BigDecimal(currentMoneyProvided);
@@ -55,7 +55,7 @@ public class Purchase {
             } else {
 
                 while(currentMoneyProvided > 0){
-                    currentMoneyProvided -= NICKLE;
+                    currentMoneyProvided -= NICKEL;
                     nicklesToReturn++;
                 }
             }
@@ -64,27 +64,26 @@ public class Purchase {
 
     }
 
-
+    //getters
     public double getCurrentMoneyProvided() {
         return currentMoneyProvided;
-    }
-
-    public void setCurrentMoneyProvided(double currentMoneyProvided) {
-        this.currentMoneyProvided = currentMoneyProvided;
     }
 
     public double getChange() {
         return change;
     }
-
-    public void setChange(double change) {
-        this.change = change;
-    }
-
     public double getMoneyNeeded() {
         return moneyNeeded;
     }
 
+    //setters
+    public void setCurrentMoneyProvided(double currentMoneyProvided) {
+        this.currentMoneyProvided = currentMoneyProvided;
+    }
+
+    public void setChange(double change) {
+        this.change = change;
+    }
     public void setMoneyNeeded(double moneyNeeded) {
         this.moneyNeeded = moneyNeeded;
     }
