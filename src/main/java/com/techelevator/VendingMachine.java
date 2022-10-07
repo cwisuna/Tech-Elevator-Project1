@@ -118,14 +118,15 @@ public class VendingMachine{
 
 
 						String chooseLocation = (String) menu.getChoiceFromOptions(SLOT_POSITION);
+						Item itemChoice;
+						itemChoice.getClass(chooseLocation);
 
-						if(chooseLocation.equals("A1"){
-							return vendingMachineMap.get(chooseLocation);
+						if(chooseLocation.equals("A1")){
+							System.out.println(itemChoice.getName());
 						}
 
 
 
-//						Item itemChoice = new Item(chooseLocation);
 
 					}
 
