@@ -3,19 +3,19 @@ package com.techelevator.view;
 import java.math.BigDecimal;
 
 public class Purchase {
-    public double currentMoneyProvided = 0;
-    public double change;
-    public double moneyNeeded;
+    private double currentMoneyProvided = 0;
+    private double change;
+    private double moneyNeeded;
 
-    public final double NICKLE = .05;
-    public final double DIME = .10;
-    public final double QUARTER = .25;
+    private final double NICKEL = .05;
+    private final double DIME = .10;
+    private final double QUARTER = .25;
 
 
 
     // BUTTON #1 on Purchase Menu - Call This Method and the Customer adds money to the machine
     public void feedMoney(double amountOfMoney){
-        this.currentMoneyProvided += amountOfMoney;
+        currentMoneyProvided += amountOfMoney;
     }
 
     //BUTTON #2 on PURCHASE MENU
@@ -31,7 +31,6 @@ public class Purchase {
             getChange(currentMoneyProvided);
         }
     }
-
 
     //Determines How Much Change To Return
     public String getChange(double currentMoneyProvided) {
@@ -54,7 +53,7 @@ public class Purchase {
             } else {
 
                 while(currentMoneyProvided > 0){
-                    currentMoneyProvided -= NICKLE;
+                    currentMoneyProvided -= NICKEL;
                     nicklesToReturn++;
                 }
             }
@@ -63,27 +62,26 @@ public class Purchase {
 
     }
 
-
+    //getters
     public double getCurrentMoneyProvided() {
         return currentMoneyProvided;
-    }
-
-    public void setCurrentMoneyProvided(double currentMoneyProvided) {
-        this.currentMoneyProvided = currentMoneyProvided;
     }
 
     public double getChange() {
         return change;
     }
-
-    public void setChange(double change) {
-        this.change = change;
-    }
-
     public double getMoneyNeeded() {
         return moneyNeeded;
     }
 
+    //setters
+    public void setCurrentMoneyProvided(double currentMoneyProvided) {
+        this.currentMoneyProvided = currentMoneyProvided;
+    }
+
+    public void setChange(double change) {
+        this.change = change;
+    }
     public void setMoneyNeeded(double moneyNeeded) {
         this.moneyNeeded = moneyNeeded;
     }

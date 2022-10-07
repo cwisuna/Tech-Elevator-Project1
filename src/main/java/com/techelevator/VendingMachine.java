@@ -1,8 +1,6 @@
 package com.techelevator;
 
 import com.techelevator.view.*;
-
-import javax.print.DocFlavor;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -17,10 +15,11 @@ public class VendingMachine{
 	private static final String PURCHASE_MENU_FINISH = "Finish Transaction";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_EXIT_OPTION };
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
+	private static final Double[] MONEY_CUSTOMER_CAN_ENTER = {1.00,2.00,5.00,10.00,20.00};
 
-	public static Map<String, Item> mapOfVendingMachine = new HashMap<>();
 
 
+	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
 
 	private Menu menu;
 
@@ -28,40 +27,41 @@ public class VendingMachine{
 		Menu menu = new Menu(System.in, System.out);
 
 		VendingMachine cli = new VendingMachine(menu);
+
 		readFileAndMappingItems();
 
 		System.out.println();
 		cli.run();
 	}
 
-	public VendingMachine(Menu menu) {
+	public VendingMachine(Menu menu){
 		this.menu = menu;
 	}
 
 
 	public static void readFileAndMappingItems(){
-		File readTheFile = new File("vendingmachine.csv");
-		try (Scanner dataInput = new Scanner(readTheFile)) {
-			while (dataInput.hasNextLine()) {
-				String lineOfInput = dataInput.nextLine();
-				String [] fileLine = lineOfInput.split("\\|");
+		File fileToBeRead = new File("vendingmachine.csv");
+		try (Scanner fileOpener = new Scanner(fileToBeRead)) {
+			while (fileOpener.hasNextLine()) {
+				String lineOfText = fileOpener.nextLine();
+				String [] fileLine = lineOfText.split("\\|");
 
 					if(fileLine[3].equals("Chip")){
-						Chips chip = new Chips(fileLine[1], Double.parseDouble(fileLine[2]));
-						mapOfVendingMachine.put(fileLine[0], chip);
+						Chips chipItems = new Chips(fileLine[0], fileLine[1], Double.parseDouble(fileLine[2]));
+						vendingMachineMap.put(fileLine[0], chipItems);
 
 					} else if(fileLine[3].equals("Candy")){
-					Candy candy = new Candy(fileLine[1], Double.parseDouble(fileLine[2]));
-					mapOfVendingMachine.put(fileLine[0], candy);
+					Candy candyItem = new Candy(fileLine[0],fileLine[1], Double.parseDouble(fileLine[2]));
+					vendingMachineMap.put(fileLine[0], candyItem);
 					}
 
-					else if(fileLine[3].equals("Beverage")){
-						Beverages beverages = new Beverages(fileLine[1], Double.parseDouble(fileLine[2]));
-						mapOfVendingMachine.put(fileLine[0], beverages);
+					else if(fileLine[3].equals("Drink")){
+						Drink beveragesItem = new Drink(fileLine[0],fileLine[1], Double.parseDouble(fileLine[2]));
+						vendingMachineMap.put(fileLine[0], beveragesItem);
 
 					} else if(fileLine[3].equals("Gum")){
-						Gum gum = new Gum(fileLine[1], Double.parseDouble(fileLine[2]));
-						mapOfVendingMachine.put(fileLine[0], gum);
+						Gum gumItem = new Gum(fileLine[0],fileLine[1], Double.parseDouble(fileLine[2]));
+						vendingMachineMap.put(fileLine[0], gumItem);
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -72,41 +72,43 @@ public class VendingMachine{
 
 	public void run() {
 
-		// ===== you nay use/modify the existing Menu class or write your own ======
 		while (true) {
-				String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 
+			Purchase customerPurchase = new Purchase();
+			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+
+			//if customer chooses display items, Map is shown with items
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				System.out.print(mapOfVendingMachine.values());
-				 															 // display vending machine items
+				for (Map.Entry<String, Item> item : vendingMachineMap.entrySet()) {
+					System.out.println(item.getValue().toString());
+
+				}
+
+				//if customer chooses purchase, purchase menu is shown to customer
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-				String subChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
-//				Purchase newPurchase = new Purchase();
+				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+				//if customer chooses purchase, chooses feed money option
+				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
 
+					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
+					Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY_CUSTOMER_CAN_ENTER);
 
-				if(choice.equals(PURCHASE_MENU_FEED_OPTION)){
-					// Allow user to feed money into the machine
-//					newPurchase.feedMoney(moneyIn);
-
-
+					customerPurchase.feedMoney(amountOfMoney);
+					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
 
 
 				} else if(choice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
-					//Allow user to choose an item
 
 
 				} else if(choice.equals(PURCHASE_MENU_FINISH)){
-					// Return the customer their money, Reset current balance to 0
-
-
 
 					return;
 				}
-																			// do purchase
+
 			} else if (choice.equals(MAIN_MENU_EXIT_OPTION)){
 				System.exit(1);
 			}
-			  																//will exit
+
 		}
 
 	}
