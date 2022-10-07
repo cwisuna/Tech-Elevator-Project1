@@ -94,16 +94,6 @@ public class VendingMachine{
 				//if customer chooses purchase, purchase menu is shown to customer
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
-
-//				//Writing transaction log to Log.txt
-//				File targetFile = new File("src", "Log.txt");
-//				SimpleDateFormat format = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
-//				try(PrintWriter writer = new PrintWriter(targetFile)){
-//					writer.println(format);
-//				} catch (FileNotFoundException e) {
-//					System.out.println("File not found");;
-//				}
-
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 				//if customer chooses purchase, chooses feed money option
 				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
