@@ -3,6 +3,7 @@ package com.techelevator.view;
 import java.math.BigDecimal;
 
 public class Purchase {
+
     private double currentMoneyProvided = 0;
     private double change;
     private double moneyNeeded;
@@ -17,6 +18,7 @@ public class Purchase {
     public void feedMoney(double amountOfMoney){
         currentMoneyProvided += amountOfMoney;
     }
+
 
     //BUTTON #2 on PURCHASE MENU
     //NEED TO CREATE METHOD FOR PURCHASING ITEM

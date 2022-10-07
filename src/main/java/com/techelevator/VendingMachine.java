@@ -19,6 +19,7 @@ public class VendingMachine{
 
 
 
+
 	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
 
 	private Menu menu;
@@ -38,7 +39,7 @@ public class VendingMachine{
 		this.menu = menu;
 	}
 
-
+//Reads the Document of Items to put in the vending machine, and distributes them to classes
 	public static void readFileAndMappingItems(){
 		File fileToBeRead = new File("vendingmachine.csv");
 		try (Scanner fileOpener = new Scanner(fileToBeRead)) {
@@ -70,8 +71,14 @@ public class VendingMachine{
 
 	}
 
+
+//Running our code - This method runs in PSVM
 	public void run() {
 
+		//Imports the Scanner
+		Scanner customerInput = new Scanner(System.in);
+
+		// ===== you nay use/modify the existing Menu class or write your own ======
 		while (true) {
 
 			Purchase customerPurchase = new Purchase();
@@ -84,11 +91,13 @@ public class VendingMachine{
 
 				}
 
+
 				//if customer chooses purchase, purchase menu is shown to customer
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 				//if customer chooses purchase, chooses feed money option
 				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
+
 
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
 					Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY_CUSTOMER_CAN_ENTER);
@@ -100,8 +109,11 @@ public class VendingMachine{
 				} else if(choice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
 
 
-				} else if(choice.equals(PURCHASE_MENU_FINISH)){
 
+
+				} else if(choice.equals(PURCHASE_MENU_FINISH)){
+					// Return the customer their money, Reset current balance to 0
+					customerPurchase.getChange();
 					return;
 				}
 
