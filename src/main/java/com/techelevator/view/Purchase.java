@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Purchase {
 
-    private double currentMoneyProvided = 0;
+    private static double currentMoneyProvided = 0;
     private double change;
     private double moneyNeeded;
 

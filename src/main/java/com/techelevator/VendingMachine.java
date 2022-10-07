@@ -16,6 +16,7 @@ public class VendingMachine{
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_EXIT_OPTION };
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
 	private static final Double[] MONEY_CUSTOMER_CAN_ENTER = {1.00,2.00,5.00,10.00,20.00};
+	private static final String[] SLOT_POSITION = {"A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"};
 
 
 
@@ -83,24 +84,23 @@ public class VendingMachine{
 		// ===== you nay use/modify the existing Menu class or write your own ======
 		while (true) {
 
-			Purchase customerPurchase = new Purchase();
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
+			Purchase customerPurchase = new Purchase();
 
 			//if customer chooses display items, Map is shown with items
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				for (Map.Entry<String, Item> item : vendingMachineMap.entrySet()) {
-					System.out.println(item.getValue().toString());
-
+					System.out.println(item.getValue().toString().trim());
 				}
 
 
 
 				//if customer chooses purchase, purchase menu is shown to customer
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
+
 				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 				//if customer chooses purchase, chooses feed money option
 				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
-
 
 
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
@@ -111,12 +111,28 @@ public class VendingMachine{
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
 
 
-				} else if(choice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
+				} else if(purchaseChoice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
+
+					for (Map.Entry<String, Item> item : vendingMachineMap.entrySet()) {
+						System.out.println(item.getValue().getLocation() + "| " + item.getValue().getName() + " - $" + item.getValue().getPrice());
+
+
+						String chooseLocation = (String) menu.getChoiceFromOptions(SLOT_POSITION);
+
+						if(chooseLocation.equals("A1"){
+							return vendingMachineMap.get(chooseLocation);
+						}
+
+
+
+//						Item itemChoice = new Item(chooseLocation);
+
+					}
 
 
 
 
-				} else if(choice.equals(PURCHASE_MENU_FINISH)){
+				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){
 					// Return the customer their money, Reset current balance to 0
 					customerPurchase.getChange();
 					return;
