@@ -19,7 +19,6 @@ public class VendingMachine{
 //	private static final String[] SLOT_POSITION = {"A1 Chip Crisp", "A2 - Stackers", "A3 - Grain Waves", "A4 - Cloud Popcorn", "B1 - Moonpie", "B2 - Cowtales", "B3 - Wonka Bar", "B4 - Crunchie", "C1 - Cola", "C2 - Dr. Salt", "C3 - Mountain Melter", "C4 - Heavy", "D1 - U-Chews", "D2 - Little League Chew", "D3 - Chiclets", "D4 - Triplemint"};
 ////	private static final String[] test = {vendingMachineMap.toString().}
 
-
 	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
 
 	private Menu menu;
@@ -72,8 +71,7 @@ public class VendingMachine{
 
 	}
 
-
-//Running our code - This method runs in PSVM
+	//Running our code - This method runs in PSVM
 	public void run() {
 
 		//Imports the Scanner
@@ -91,8 +89,6 @@ public class VendingMachine{
 					System.out.println(item.getValue().toString().trim());
 				}
 
-
-
 				//if customer chooses purchase, purchase menu is shown to customer
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
@@ -100,13 +96,13 @@ public class VendingMachine{
 				//if customer chooses purchase, chooses feed money option
 				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
 
-
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
 					Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY_CUSTOMER_CAN_ENTER);
 
-
 					customerPurchase.feedMoney(amountOfMoney);
 					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
+
+
 
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_SELECT_PRODUCT)){
@@ -117,18 +113,17 @@ public class VendingMachine{
 					}
 
 					//Customer selects which item they want from the list of KEYS
+					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
 					System.out.print("Please choose a product: ");
 					String chooseLocation = customerInput.nextLine();
 
-
-
 					//Bring in Item class and assign Customer's Selection to Item
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
-
 					System.out.println(itemSelection.getName() + " " + itemSelection.getPrice());
 
-
-//					itemSelection.dispenseItem;
+					customerPurchase.purchaseItem(itemSelection.getPrice());
+					itemSelection.dispenseItem();
+					System.out.println("Remaining total :" + customerPurchase.getCurrentMoneyProvided());
 
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){

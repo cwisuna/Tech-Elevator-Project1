@@ -26,6 +26,9 @@ public class Purchase {
     //
     //maybe we organize the keys alphabetically?
 
+    public void purchaseItem(double itemPrice){
+        currentMoneyProvided -= itemPrice;
+    }
 
     //BUTTON #3 on Purchase Menu - Returns change using .5, .10, .25 (Use smallest amount of coins)
     public void finishTransaction(){
@@ -68,7 +71,6 @@ public class Purchase {
     public double getCurrentMoneyProvided() {
         return currentMoneyProvided;
     }
-
     public double getChange() {
         return change;
     }

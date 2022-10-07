@@ -3,7 +3,7 @@ package com.techelevator.view;
 import java.util.Map;
 
 public class Gum extends Item{
-    public static String sound;
+     public String sound;
 
 
     public Gum(String location, String name, double price) {
@@ -12,9 +12,7 @@ public class Gum extends Item{
     }
 
     //Getter - print this whenever someone purchases a Gum item
-    public static String getSound() {
-        return sound;
-    }
+
 }
 
 

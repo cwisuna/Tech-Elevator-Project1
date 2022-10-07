@@ -18,15 +18,14 @@ public class Item {
 
 
 
+    public void dispenseItem(){
+        if(quantity > 0){
+            quantity --;
+        } else {
+            System.out.println("Sorry - This Item is Out of Stock" );
+        }
 
-//    public void dispenseItem(){
-//        if(this.quantity > 0){
-//            this.quantity --;
-//        } else {
-//            return "Sorry - This Item is Out of Stock :(";
-//        }
-//
-//    }
+    }
 
 
     //Getters and Setters
@@ -46,6 +45,7 @@ public class Item {
         this.location = location;
     }
 
+
     public void setName(String name) {
         this.name = name;
     }
@@ -57,10 +57,12 @@ public class Item {
     }
 
 
+
+
     //To String (String Print out when Customer selects 1 from the main menu
     @Override
     public String toString(){
-        return location + ", " +  name + ", " + "$" + price + ", " + quantity + " are remaining \n";
+        return location + ", " +  name + ", " + "$" + price + ", " + quantity + " remaining \n";
     }
 
 }
