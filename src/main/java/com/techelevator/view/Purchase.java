@@ -3,9 +3,9 @@ package com.techelevator.view;
 import java.math.BigDecimal;
 
 public class Purchase {
-    public double currentMoneyProvided = 0;
-    public double change;
-    public double moneyNeeded;
+    public static double currentMoneyProvided;
+    public static double change;
+    public static double moneyNeeded;
 
     public final double NICKLE = .05;
     public final double DIME = .10;
@@ -15,8 +15,9 @@ public class Purchase {
 
     // BUTTON #1 on Purchase Menu - Call This Method and the Customer adds money to the machine
     public void feedMoney(double amountOfMoney){
-        this.currentMoneyProvided += amountOfMoney;
+        currentMoneyProvided += amountOfMoney;
     }
+
 
     //BUTTON #2 on PURCHASE MENU
     //NEED TO CREATE METHOD FOR PURCHASING ITEM
