@@ -20,12 +20,7 @@ public class Purchase {
     }
 
 
-    //BUTTON #2 on PURCHASE MENU
-    //NEED TO CREATE METHOD FOR PURCHASING ITEM
-    //Uses the Map to select item from the Key slot
-    //
-    //maybe we organize the keys alphabetically?
-
+    //BUTTON #2 on Purchase Menu - Feeds money to Machine
     public void purchaseItem(double itemPrice){
         currentMoneyProvided -= itemPrice;
     }
