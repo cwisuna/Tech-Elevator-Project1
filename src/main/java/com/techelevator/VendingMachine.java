@@ -17,7 +17,7 @@ public class VendingMachine{
 	private static final String PURCHASE_MENU_FINISH = "Finish Transaction";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_EXIT_OPTION };
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
-	private static final Double[] MONEY = {1.0, 2.0, 5.0, 10.0, 20.0};
+	private static final Double[] MONEY = {1.00, 2.00, 5.00, 10.00, 20.00};
 
 	public static Map<String, Item> mapOfVendingMachine = new HashMap<>();
 
@@ -56,7 +56,7 @@ public class VendingMachine{
 					mapOfVendingMachine.put(fileLine[0], candy);
 					}
 
-					else if(fileLine[3].equals("Beverage")){
+					else if(fileLine[3].equals("Drink")){
 						Beverages beverages = new Beverages(fileLine[1], Double.parseDouble(fileLine[2]));
 						mapOfVendingMachine.put(fileLine[0], beverages);
 
@@ -87,28 +87,25 @@ public class VendingMachine{
 
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
-				System.out.print(mapOfVendingMachine.values());
+				for(Map.Entry<String, Item> item : mapOfVendingMachine.entrySet())
+				System.out.print(item.getValue().toString());
 
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 
 				//This String selects what button to press from the Purchase Menu
-				System.out.println(customerPurchase.getCurrentMoneyProvided());
-				String subChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
+				System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
+				String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 
 
 				//Customer selects FEED MONEY option from Purchase menu
-				if(subChoice.equals(PURCHASE_MENU_FEED_OPTION)){
-						//Prints Out Dollar Amount Customer Can Insert
-						System.out.println(Arrays.toString(MONEY));
+				if(purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)){
 
 						//Customer Selects Money Amount Inserted
 						Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY);
 
 						//Feeds Money Into Machine
 						customerPurchase.feedMoney(amountOfMoney);
-						System.out.println(customerPurchase.getCurrentMoneyProvided());
-
 
 
 
