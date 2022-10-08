@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -125,7 +126,8 @@ public class VendingMachine{
 					//Bring in Item class and assign Customer's Selection to Item
 					if(!vendingMachineMap.containsKey(chooseLocation)){
 						System.out.println("That location is invalid, please try again.");
-						purchaseChoice.equals((String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS));
+						purchaseChoice.equals(menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS));
+						continue;
 					}
 
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
@@ -149,6 +151,7 @@ public class VendingMachine{
 				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){
 					// Return the customer their money, Reset current balance to 0
 					writeGiveChangeToFile(customerPurchase.getCurrentMoneyProvided());
+
 					System.out.println(customerPurchase.returnChange());
 
 				}
@@ -184,10 +187,11 @@ public class VendingMachine{
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
 
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+		String dateString = dateFormat.format(new Date()).toString();
 
 		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(formatter + "FEED MONEY: $" + moneyFed + " $" + totalCustomerMoney);
+			writer.println(dateString + " FEED MONEY: $" + moneyFed + " $" + totalCustomerMoney);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");;
 		}
@@ -196,10 +200,11 @@ public class VendingMachine{
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
 
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+		String dateString = dateFormat.format(new Date()).toString();
 
 		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(formatter + "GIVE CHANGE: $" + customerTotalMoney + " $0.00");
+			writer.println(dateString + " GIVE CHANGE: $" + customerTotalMoney + " $0.00");
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");;
 		}
@@ -208,10 +213,11 @@ public class VendingMachine{
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
 
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+		String dateString = dateFormat.format(new Date()).toString();
 
 		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(formatter + " " + itemSelection.getName() + " "
+			writer.println(dateString + " " + itemSelection.getName() + " "
 					+ itemSelection.getLocation() + " " + itemSelection.getPrice() + " "
 					+ customerPurchase.getCurrentMoneyProvided());
 		} catch (FileNotFoundException e) {

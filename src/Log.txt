@@ -15,3 +15,30 @@ java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
 java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
 java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
 java.text.SimpleDateFormat@fa28f760 U-Chews D1 0.85 1.15
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $10.0 $10.0
+java.text.SimpleDateFormat@fa28f760 Heavy C4 1.5 8.5
+java.text.SimpleDateFormat@fa28f760 Cola C1 1.25 7.25
+java.text.SimpleDateFormat@fa28f760 Crunchie B4 1.75 5.5
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $5.0 $10.5
+java.text.SimpleDateFormat@fa28f760 Cola C1 1.25 9.25
+java.text.SimpleDateFormat@fa28f760 Triplemint D4 0.75 8.5
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
+10-281-2022 17:59:47 Chiclets D3 0.75 1.25
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
+10-281-2022 18:02:00 PM Chiclets D3 0.75 1.25
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $5.0 $5.0
+java.text.SimpleDateFormat@fa28f760 Triplemint D4 0.75 4.25
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
+java.text.SimpleDateFormat@13c8a3a1 Chiclets D3 0.75 1.25
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
+10-281-2022 06.09.12 PM Triplemint D4 0.75 1.25
+java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 $2.0
+10-08-2022 06.09.58 PM Little League Chew D2 0.95 1.05
+10/08/2022 06:11:52 PM FEED MONEY: $2.0 $2.0
+10/08/2022 06:12:02 PM FEED MONEY: $10.0 $12.0
+10/08/2022 06:12:11 PM Cloud Popcorn A4 3.65 8.35
+10/08/2022 06:12:46 PM FEED MONEY: $2.0 $2.0
+10/08/2022 06:12:50 PM U-Chews D1 0.85 1.15
+10/08/2022 06:12:53 PMGIVE CHANGE: $1.15 $0.00
