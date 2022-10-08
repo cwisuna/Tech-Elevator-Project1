@@ -18,13 +18,13 @@ public class Item {
 
 
 
-    public void dispenseItem(){
+    public void dispenseItem(Item itemSelection){
         if(quantity > 0){
             quantity --;
         } else {
             System.out.println("Sorry - This Item is Out of Stock" );
         }
-
+        System.out.println(itemSelection.getSound());
     }
 
     public String getSound(){

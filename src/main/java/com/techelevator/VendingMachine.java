@@ -126,22 +126,16 @@ public class VendingMachine{
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
 					System.out.println(itemSelection.getName() + " " + itemSelection.getPrice());
 
-					// If Item Selected is in Stock, Subtract Customer Money and Quantity --1
+					// if item is in stock, customer purchases item and machine dispenses
 					if(itemSelection.getQuantity() > 0){
 						if(customerPurchase.getCurrentMoneyProvided() >= itemSelection.getPrice()){
-							customerPurchase.purchaseItem(itemSelection.getPrice());
-							itemSelection.dispenseItem();
-							System.out.println(itemSelection.getSound());
-							writePurchaseToFile(itemSelection.getName(), itemSelection.getLocation(), itemSelection.getPrice(), customerPurchase.getCurrentMoneyProvided());
+							purchaseItem(customerPurchase, itemSelection);
 
-
-							String remainingTotal = String.format("%.2f", customerPurchase.getCurrentMoneyProvided());
-							System.out.println("Remaining total :" + remainingTotal);
 						} else {
 							System.out.println("Insert More Money to Purchase Item");
 						}
 
-						//If item is out of Stock, Print Error Message
+					//If item is out of Stock, Print Error Message
 					} else {
 						System.out.println("Sorry, this item is out of stock.");
 					}
@@ -162,6 +156,26 @@ public class VendingMachine{
 		}
 
 	}
+
+
+	//method to call when customer purchases item
+	public void purchaseItem(Purchase customerPurchase, Item itemSelection){
+		//Subtracts money from Customer's Total
+		customerPurchase.purchaseItem(itemSelection.getPrice());
+
+		// prints Item sound and subtracts from quantity
+		itemSelection.dispenseItem(itemSelection);
+
+		//writes purchase info to Log.txt
+		writePurchaseToFile(customerPurchase, itemSelection);
+
+		//prints how much money customer has left
+		String remainingTotal = String.format("%.2f", customerPurchase.getCurrentMoneyProvided());
+		System.out.println("Remaining total :" + remainingTotal);
+
+	}
+
+	//methods that write to Log.txt
 	public void writeFeedToFile(double moneyFed, double totalCustomerMoney){
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
@@ -174,18 +188,7 @@ public class VendingMachine{
 			System.out.println("File not found");;
 		}
 	}
-	public void writePurchaseToFile(String itemName, String slotNumber, double itemCost, double totalCustomerMoney){
-		//Writing transaction log to Log.txt
-		File targetFile = new File("src", "Log.txt");
 
-		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
-
-		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(formatter + " " + itemName + " " + slotNumber + " " + itemCost + " " + totalCustomerMoney);
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");;
-		}
-	}
 	public void writeGiveChangeToFile(double customerTotalMoney){
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
@@ -199,4 +202,22 @@ public class VendingMachine{
 		}
 	}
 
+	public void writePurchaseToFile(Purchase customerPurchase, Item itemSelection){
+		//Writing transaction log to Log.txt
+		File targetFile = new File("src", "Log.txt");
+
+		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
+
+		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+			writer.println(formatter + " " + itemSelection.getName() + " "
+					+ itemSelection.getLocation() + " " + itemSelection.getPrice() + " "
+					+ customerPurchase.getCurrentMoneyProvided());
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found");;
+		}
+	}
+
+
+
 }
+
