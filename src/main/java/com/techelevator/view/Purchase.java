@@ -8,9 +8,9 @@ public class Purchase {
     private double change;
     private double moneyNeeded;
 
-    private final double NICKEL = .05;
-    private final double DIME = .10;
-    private final double QUARTER = .25;
+    private final double NICKEL = ((.05 * 100) /100.0);
+    private final double DIME = ((.10 * 100) /100.0);
+    private final double QUARTER = ((.25 * 100) / 100.0);
 
 
 
@@ -25,46 +25,40 @@ public class Purchase {
         currentMoneyProvided -= itemPrice;
     }
 
-    //BUTTON #3 on Purchase Menu - Returns change using .5, .10, .25 (Use smallest amount of coins)
-    public void finishTransaction(){
-        if(currentMoneyProvided > 0 ){
-            getChange(currentMoneyProvided);
-        }
-    }
+//    //BUTTON #3 on Purchase Menu - Returns change using .5, .10, .25 (Use smallest amount of coins)
+//    public void finishTransaction(){
+//        if(currentMoneyProvided > 0 ){
+//            getChange(currentMoneyProvided);
+//        }
+//    }
 
     //Determines How Much Change To Return
-    public String getChange(double currentMoneyProvided) {
-        BigDecimal currentMoney = new BigDecimal(currentMoneyProvided);
+    public String returnChange() {
         int quartersToReturn = 0;
         int dimesToReturn = 0;
         int nicklesToReturn = 0;
 
-        while(currentMoneyProvided > 0){
-            if(currentMoneyProvided - .25 != 0) {
-                currentMoneyProvided -= QUARTER;
-                change += QUARTER;
+        while(this.currentMoneyProvided > 0){
+            if(this.currentMoneyProvided - QUARTER >= 0) {
+                this.currentMoneyProvided -= QUARTER;
                 quartersToReturn++;
+                System.out.println(quartersToReturn + "quarters");
 
-            } else if(currentMoneyProvided - .10 != 0){
-                currentMoneyProvided -= DIME;
-                change += DIME;
+            } else if(this.currentMoneyProvided - DIME >= 0){
+                this.currentMoneyProvided -= DIME;
                 dimesToReturn++;
+                System.out.println(dimesToReturn + "dimes");
 
             } else {
-
-                while(currentMoneyProvided > 0){
-                    currentMoneyProvided -= NICKEL;
+                while(this.currentMoneyProvided - NICKEL >= 0){
+                    this.currentMoneyProvided -= NICKEL;
                     nicklesToReturn++;
+                    System.out.println(nicklesToReturn + "nickles");
                 }
             }
         }
-        return ("Quarters:" + quartersToReturn + " Dimes:" + dimesToReturn + " Nickles:" + nicklesToReturn);
-
+        return ("Quarters:" + quartersToReturn + ", Dimes:" + dimesToReturn + ", Nickles:" + nicklesToReturn);
     }
-
-
-
-
 
 
     //getters

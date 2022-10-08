@@ -144,9 +144,9 @@ public class VendingMachine{
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){
 					// Return the customer their money, Reset current balance to 0
-					customerPurchase.getChange();
 					writeGiveChangeToFile(customerPurchase.getCurrentMoneyProvided());
-					customerPurchase.setCurrentMoneyProvided(0.00);
+					System.out.println(customerPurchase.returnChange());
+
 				}
 
 			} else if (choice.equals(MAIN_MENU_EXIT_OPTION)){
@@ -163,7 +163,7 @@ public class VendingMachine{
 		SimpleDateFormat formatter = new SimpleDateFormat("MM-DD-YYYY HH:mm:ss");
 
 		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(formatter + "FEED MONEY: $" + moneyFed + " " + totalCustomerMoney);
+			writer.println(formatter + "FEED MONEY: $" + moneyFed + " $" + totalCustomerMoney);
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found");;
 		}
