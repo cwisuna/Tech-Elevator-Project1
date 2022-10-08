@@ -18,7 +18,7 @@ public class VendingMachine{
 	private static final String PURCHASE_MENU_FINISH = "Finish Transaction";
 	private static final String[] MAIN_MENU_OPTIONS = { MAIN_MENU_OPTION_DISPLAY_ITEMS, MAIN_MENU_OPTION_PURCHASE, MAIN_MENU_EXIT_OPTION };
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
-	private static final Double[] MONEY_CUSTOMER_CAN_ENTER = {1.00,2.00,5.00,10.00,20.00};
+	private static final Double[] MONEY_CUSTOMER_CAN_ENTER = {1.00, 2.00, 5.00, 10.00, 20.00};
 
 
 	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
@@ -114,9 +114,13 @@ public class VendingMachine{
 					}
 
 					//Customer selects which item they want from the list of KEYS
-					System.out.println("Current Money Provided: " + customerPurchase.getCurrentMoneyProvided());
+					String currentMoneyProvided = String.format("%.2f", customerPurchase.getCurrentMoneyProvided());
+					System.out.printf("Current Money Provided: " + currentMoneyProvided);
+					System.out.println();
 					System.out.print("Please choose a product: ");
-					String chooseLocation = customerInput.nextLine();
+
+					//Customer enters item Location - Case insensitive
+					String chooseLocation = customerInput.nextLine().toUpperCase();
 
 					//Bring in Item class and assign Customer's Selection to Item
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
@@ -127,10 +131,12 @@ public class VendingMachine{
 						if(customerPurchase.getCurrentMoneyProvided() >= itemSelection.getPrice()){
 							customerPurchase.purchaseItem(itemSelection.getPrice());
 							itemSelection.dispenseItem();
+							System.out.println(itemSelection.getSound());
 							writePurchaseToFile(itemSelection.getName(), itemSelection.getLocation(), itemSelection.getPrice(), customerPurchase.getCurrentMoneyProvided());
 
 
-							System.out.println("Remaining total :" + customerPurchase.getCurrentMoneyProvided());
+							String remainingTotal = String.format("%.2f", customerPurchase.getCurrentMoneyProvided());
+							System.out.println("Remaining total :" + remainingTotal);
 						} else {
 							System.out.println("Insert More Money to Purchase Item");
 						}

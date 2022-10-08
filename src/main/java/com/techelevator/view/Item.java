@@ -27,6 +27,10 @@ public class Item {
 
     }
 
+    public String getSound(){
+        return getSound();
+    }
+
 
     //Getters and Setters
     public String getName() {
