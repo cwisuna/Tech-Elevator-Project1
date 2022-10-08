@@ -125,7 +125,7 @@ public class VendingMachine{
 					//Bring in Item class and assign Customer's Selection to Item
 					if(!vendingMachineMap.containsKey(chooseLocation)){
 						System.out.println("That location is invalid, please try again.");
-						continue;
+						purchaseChoice.equals((String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS));
 					}
 
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
@@ -218,6 +218,8 @@ public class VendingMachine{
 			System.out.println("File not found");;
 		}
 	}
+
+
 
 }
 
