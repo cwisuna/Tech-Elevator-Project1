@@ -40,7 +40,7 @@ public class VendingMachine{
 		this.menu = menu;
 	}
 
-//Reads the Document of Items to put in the vending machine, and distributes them to classes
+    //reads item document and adds items to classes
 	public static void readFileAndMappingItems(){
 		File fileToBeRead = new File("vendingmachine.csv");
 		try (Scanner fileOpener = new Scanner(fileToBeRead)) {
@@ -73,7 +73,7 @@ public class VendingMachine{
 
 	}
 
-	//Running our code - This method runs in PSVM
+
 	public void run() {
 
 		//Imports the Scanner
@@ -113,7 +113,7 @@ public class VendingMachine{
 						System.out.println(item.getValue().getLocation() + "| " + item.getValue().getName() + " - $" + item.getValue().getPrice());
 					}
 
-					//Customer selects which item they want from the list of KEYS
+					//Customer selects which item they want
 					String currentMoneyProvided = String.format("%.2f", customerPurchase.getCurrentMoneyProvided());
 					System.out.printf("Current Money Provided: " + currentMoneyProvided);
 					System.out.println();
@@ -123,8 +123,13 @@ public class VendingMachine{
 					String chooseLocation = customerInput.nextLine().toUpperCase();
 
 					//Bring in Item class and assign Customer's Selection to Item
+					if(!vendingMachineMap.containsKey(chooseLocation)){
+						System.out.println("That location is invalid, please try again.");
+						continue;
+					}
+
 					Item itemSelection = vendingMachineMap.get(chooseLocation);
-					System.out.println(itemSelection.getName() + " " + itemSelection.getPrice());
+
 
 					// if item is in stock, customer purchases item and machine dispenses
 					if(itemSelection.getQuantity() > 0){
@@ -139,7 +144,6 @@ public class VendingMachine{
 					} else {
 						System.out.println("Sorry, this item is out of stock.");
 					}
-
 
 
 				} else if(purchaseChoice.equals(PURCHASE_MENU_FINISH)){
@@ -188,7 +192,6 @@ public class VendingMachine{
 			System.out.println("File not found");;
 		}
 	}
-
 	public void writeGiveChangeToFile(double customerTotalMoney){
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
@@ -201,7 +204,6 @@ public class VendingMachine{
 			System.out.println("File not found");;
 		}
 	}
-
 	public void writePurchaseToFile(Purchase customerPurchase, Item itemSelection){
 		//Writing transaction log to Log.txt
 		File targetFile = new File("src", "Log.txt");
@@ -216,8 +218,6 @@ public class VendingMachine{
 			System.out.println("File not found");;
 		}
 	}
-
-
 
 }
 

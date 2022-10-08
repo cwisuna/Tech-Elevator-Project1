@@ -18,6 +18,7 @@ public class Item {
 
 
 
+    //called in the purchase method, subtracts quantity and prints sound
     public void dispenseItem(Item itemSelection){
         if(quantity > 0){
             quantity --;
