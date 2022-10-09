@@ -88,9 +88,8 @@ public class VendingMachine{
 		// ===== you nay use/modify the existing Menu class or write your own ======
 		while (true) {
 
-			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
-			{
-				Purchase customerPurchase = new Purchase(itemLocation, itemName, itemCost);
+			Purchase customerPurchase = new Purchase(itemLocation, itemName, itemCost);
+			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS); {
 
 				//if customer chooses display items, Map is shown with items
 				if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -99,11 +98,10 @@ public class VendingMachine{
 					}
 
 
-
 				//if customer chooses purchase, purchase menu is shown to customer
 				} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
-					while(true) {
 
+					while(true) {
 						String purchaseChoice = (String) menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS);
 
 						//if customer chooses purchase, chooses feed money option
@@ -111,7 +109,6 @@ public class VendingMachine{
 							System.out.println("Current Money Provided: $" + customerPurchase.currentMoneyAsString());
 							Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY_CUSTOMER_CAN_ENTER);
 							customerPurchase.feedMoney(amountOfMoney);
-
 
 
 						} else if (purchaseChoice.equals(PURCHASE_MENU_SELECT_PRODUCT)) {
@@ -122,8 +119,8 @@ public class VendingMachine{
 							}
 
 							//Customer selects which item they want
-							System.out.println("Total Balance: $" + customerPurchase.currentMoneyAsString());
 							System.out.println();
+							System.out.println("Total Balance: $" + customerPurchase.currentMoneyAsString());
 							System.out.print("Please choose a product: ");
 
 							//Customer enters item Location - Case insensitive
@@ -135,21 +132,15 @@ public class VendingMachine{
 								purchaseChoice.equals(menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS));
 								continue;
 							}
-
 							Item itemSelection = vendingMachineMap.get(chooseLocation);
-
 							customerPurchase.purchaseMenuSelectItem(itemSelection);
 
-
 						} else if (purchaseChoice.equals(PURCHASE_MENU_FINISH)) {
-							// Return the customer their money, Reset current balance to 0
 							customerPurchase.purchaseMenuFinish();
 							break;
 						}
 					}
 
-
-					
 				} else if (choice.equals(MAIN_MENU_EXIT_OPTION)) {
 					System.exit(1);
 
@@ -158,7 +149,6 @@ public class VendingMachine{
 			}
 		}
 	}
-
 //	public void salesReport(Purchase customerPurchase, Item itemSelection){
 //		//Writing transaction log to Log.txt
 //		File targetFile = new File("src", "SalesReport.txt");
@@ -174,8 +164,6 @@ public class VendingMachine{
 //			System.out.println("File not found");;
 //		}
 //	}
-
-
 
 }
 
