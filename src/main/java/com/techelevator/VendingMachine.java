@@ -21,6 +21,10 @@ public class VendingMachine{
 	private static final String[] PURCHASE_MENU_OPTIONS = { PURCHASE_MENU_FEED_OPTION, PURCHASE_MENU_SELECT_PRODUCT, PURCHASE_MENU_FINISH };
 	private static final Double[] MONEY_CUSTOMER_CAN_ENTER = {1.00, 2.00, 5.00, 10.00, 20.00};
 	private static final Integer[] HIDDEN_SALES_REPORT = {4};
+	private String itemName;
+	private String itemLocation;
+	private double itemCost;
+
 
 
 	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
@@ -32,7 +36,7 @@ public class VendingMachine{
 
 		VendingMachine cli = new VendingMachine(menu);
 
-		readFileAndMappingItems();
+		readFileAndMapItems();
 
 		System.out.println();
 		cli.run();
@@ -43,7 +47,7 @@ public class VendingMachine{
 	}
 
     //reads item document and adds items to classes
-	public static void readFileAndMappingItems(){
+	public static void readFileAndMapItems(){
 		File fileToBeRead = new File("vendingmachine.csv");
 		try (Scanner fileOpener = new Scanner(fileToBeRead)) {
 			while (fileOpener.hasNextLine()) {
@@ -86,7 +90,7 @@ public class VendingMachine{
 
 			String choice = (String) menu.getChoiceFromOptions(MAIN_MENU_OPTIONS);
 			{
-				Purchase customerPurchase = new Purchase();
+				Purchase customerPurchase = new Purchase(itemLocation, itemName, itemCost);
 
 				//if customer chooses display items, Map is shown with items
 				if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
@@ -94,7 +98,9 @@ public class VendingMachine{
 						System.out.println(item.getValue().toString().trim());
 					}
 
-					//if customer chooses purchase, purchase menu is shown to customer
+
+
+				//if customer chooses purchase, purchase menu is shown to customer
 				} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 					while(true) {
 
@@ -102,13 +108,10 @@ public class VendingMachine{
 
 						//if customer chooses purchase, chooses feed money option
 						if (purchaseChoice.equals(PURCHASE_MENU_FEED_OPTION)) {
-
 							System.out.println("Current Money Provided: $" + customerPurchase.currentMoneyAsString());
 							Double amountOfMoney = (Double) menu.getChoiceFromOptions(MONEY_CUSTOMER_CAN_ENTER);
-
 							customerPurchase.feedMoney(amountOfMoney);
-							writeFeedToFile(amountOfMoney, customerPurchase.getCurrentMoneyProvided());
-							System.out.println("Total Balance: $" + customerPurchase.currentMoneyAsString());
+
 
 
 						} else if (purchaseChoice.equals(PURCHASE_MENU_SELECT_PRODUCT)) {
@@ -135,100 +138,25 @@ public class VendingMachine{
 
 							Item itemSelection = vendingMachineMap.get(chooseLocation);
 
+							customerPurchase.purchaseMenuSelectItem(itemSelection);
 
-							// if item is in stock, customer purchases item and machine dispenses
-							if (itemSelection.getQuantity() > 0) {
-								if (customerPurchase.getCurrentMoneyProvided() >= itemSelection.getPrice()) {
-									purchaseItem(customerPurchase, itemSelection);
 
-								} else {
-									System.out.println("Insert More Money to Purchase Item");
-								}
-
-								//If item is out of Stock, Print Error Message
-							} else {
-								System.out.println("Sorry, this item is out of stock.");
-							}
 						} else if (purchaseChoice.equals(PURCHASE_MENU_FINISH)) {
 							// Return the customer their money, Reset current balance to 0
-							finishTransaction(customerPurchase);
+							customerPurchase.purchaseMenuFinish();
 							break;
 						}
 					}
 
 				} else if (choice.equals(MAIN_MENU_EXIT_OPTION)) {
 					System.exit(1);
+
 				} else if (choice.equals(HIDDEN_SALES_REPORT)) {
 				}
 			}
 		}
 	}
 
-
-	//method to call when customer purchases item
-	public void purchaseItem(Purchase customerPurchase, Item itemSelection){
-		//Subtracts money from Customer's Total
-		customerPurchase.purchaseItem(itemSelection.getPrice());
-
-		// prints Item sound and subtracts from quantity
-		itemSelection.dispenseItem(itemSelection);
-
-		//writes purchase info to Log.txt
-		writePurchaseToFile(customerPurchase, itemSelection);
-
-		//prints how much money customer has left
-		System.out.println("Remaining Balance: $" + customerPurchase.currentMoneyAsString());
-
-	}
-	public void finishTransaction(Purchase customerPurchase){
-		writeGiveChangeToFile(customerPurchase.getCurrentMoneyProvided());
-		customerPurchase.returnChange();
-		System.out.println(customerPurchase.getChange());
-		customerPurchase.setCurrentMoneyProvided(0);
-	}
-
-	//methods that write to Log.txt
-	public void writeFeedToFile(double moneyFed, double totalCustomerMoney){
-		//Writing transaction log to Log.txt
-		File targetFile = new File("src", "Log.txt");
-
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
-		String dateString = dateFormat.format(new Date());
-
-		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(dateString + " FEED MONEY: $" + moneyFed + " $" + totalCustomerMoney);
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		}
-	}
-	public void writeGiveChangeToFile(double customerTotalMoney){
-		//Writing transaction log to Log.txt
-		File targetFile = new File("src", "Log.txt");
-
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
-		String dateString = dateFormat.format(new Date());
-
-		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(dateString + " GIVE CHANGE: $" + customerTotalMoney + " $0.00");
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		}
-	}
-	public void writePurchaseToFile(Purchase customerPurchase, Item itemSelection){
-		//Writing transaction log to Log.txt
-		File targetFile = new File("src", "Log.txt");
-
-		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
-		String dateString = dateFormat.format(new Date());
-
-		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-			writer.println(dateString + " " + itemSelection.getName() + " "
-					+ itemSelection.getLocation() + " " + itemSelection.getPrice() + " "
-					+ customerPurchase.currentMoneyAsString());
-		} catch (FileNotFoundException e) {
-			System.out.println("File not found");
-		}
-	}
 //	public void salesReport(Purchase customerPurchase, Item itemSelection){
 //		//Writing transaction log to Log.txt
 //		File targetFile = new File("src", "SalesReport.txt");

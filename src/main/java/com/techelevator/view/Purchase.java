@@ -1,12 +1,17 @@
 package com.techelevator.view;
 
-import java.math.BigDecimal;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class Purchase {
+public class Purchase extends Item{
 
     private static double currentMoneyProvided = 0;
     private String change = "";
-    private double moneyNeeded;
 
 
 
@@ -14,19 +19,46 @@ public class Purchase {
     private static double dime = .10;
     private static double nickel = .05;
 
+    public Purchase(String location, String name, double price) {
+        super(location, name, price);
+    }
 
 
-    // BUTTON #1 on Purchase Menu - Call This Method and the Customer adds money to the machine
+    // BUTTON #1 on Purchase Menu - FEED Money - adds money, logs deposit, prints balance
     public void feedMoney(double amountOfMoney){
         currentMoneyProvided += amountOfMoney;
+        writeFeedToFile(amountOfMoney);
+        System.out.println("Total Balance: $" + currentMoneyAsString());
     }
 
+    public void purchaseMenuSelectItem(Item itemSelection){
+        if(itemSelection.getQuantity() > 0){
+            if (this.currentMoneyProvided >= itemSelection.getPrice()) {
+                this.currentMoneyProvided -= itemSelection.getPrice();
 
-    //BUTTON #2 on Purchase Menu - Feeds money to Machine
-    public void purchaseItem(double itemPrice){
-        currentMoneyProvided -= itemPrice;
+                itemSelection.dispenseItem(itemSelection);
+
+                System.out.println("Remaining total: " + currentMoneyAsString());
+
+            } else {
+                System.out.println("Insert More Money to Purchase Item");
+            }
+
+            //If item is out of Stock, Print Error Message
+        } else {
+            System.out.println("Sorry, this item is out of stock.");
+        }
+
+        writePurchaseToFile(itemSelection);
+
     }
+    public void purchaseMenuFinish(){
+        writeGiveChangeToFile();
+        returnChange();
+        System.out.println(getChange());
+        setCurrentMoneyProvided(0);
 
+    }
 
     //subtracts change from machine, creates String saying how much change was returned
     public void returnChange() {
@@ -35,7 +67,7 @@ public class Purchase {
         int nicklesToReturn = 0;
 
 
-        int moneyAsInt = (int) Math.round(currentMoneyProvided * 100);
+        int moneyAsInt = (int) Math.round(this.currentMoneyProvided * 100);
 
 
         while(moneyAsInt > 0){
@@ -58,28 +90,68 @@ public class Purchase {
         }
         this.change = "Quarters: " + quartersToReturn + ", Dimes: " + dimesToReturn + ", Nickles: " + nicklesToReturn;
     }
-
-
     public String currentMoneyAsString(){
         String returnCurrentMoneyProvided = String.format("%.2f", currentMoneyProvided);
         return returnCurrentMoneyProvided;
     }
 
+
+
+
     //getters
     public double getCurrentMoneyProvided() {
-        return currentMoneyProvided;
+        return this.getCurrentMoneyProvided();
     }
-
     public String getChange() {
-        return change;
-    }
-    public double getMoneyNeeded() {
-        return moneyNeeded;
+        return this.change;
     }
 
     //setters
-    public void setCurrentMoneyProvided(double currentMoneyProvided) {
-        currentMoneyProvided = currentMoneyProvided;
+    public void setCurrentMoneyProvided(double money) {
+        this.currentMoneyProvided = currentMoneyProvided;
     }
 
+
+
+    public void writePurchaseToFile(Item itemSelection){
+        //Writing transaction log to Log.txt
+        File targetFile = new File("src", "Log.txt");
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+        String dateString = dateFormat.format(new Date());
+
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+            writer.println(dateString + " " + itemSelection.getName() + " "
+                    + itemSelection.getLocation() + " " + itemSelection.getPrice() + " "
+                    + currentMoneyAsString());
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+    public void writeFeedToFile(double moneyFed){
+        //Writing transaction log to Log.txt
+        File targetFile = new File("src", "Log.txt");
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+        String dateString = dateFormat.format(new Date());
+
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+            writer.println(dateString + " FEED MONEY: $" + moneyFed + " $" + currentMoneyAsString());
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
+    public void writeGiveChangeToFile(){
+        //Writing transaction log to Log.txt
+        File targetFile = new File("src", "Log.txt");
+
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+        String dateString = dateFormat.format(new Date());
+
+        try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+            writer.println(dateString + " GIVE CHANGE: $" + currentMoneyAsString() + " $0.00");
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        }
+    }
 }
