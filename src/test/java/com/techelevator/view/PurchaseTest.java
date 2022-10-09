@@ -53,5 +53,39 @@ public class PurchaseTest {
         Assert.assertEquals(expected, actual, .001);
     }
 
-    
+
+    @Test
+    public void test_Purchase_Menu_Finish(){
+        Purchase purchaseTest = new Purchase("B9", "Chris' Cookies", 4.99);
+
+        //Arrange
+        purchaseTest.setCurrentMoneyProvided(20);
+
+        //Act
+        purchaseTest.purchaseMenuFinish();
+        double expected = 0;
+
+        //Assert
+        Assert.assertEquals(expected, purchaseTest.getCurrentMoneyProvided(), .001);
+
+    }
+
+    @Test
+    public void test_Return_Change(){
+        Purchase purchaseTest = new Purchase("B9", "Chris' Cookies", 4.99);
+
+        //Arrange
+        purchaseTest.setCurrentMoneyProvided(.40);
+        String expected = "Quarters: 1, Dimes: 1, Nickles: 1";
+
+        //Act
+        purchaseTest.returnChange();
+        String actual = purchaseTest.getChange();
+
+        //Assert
+        Assert.assertEquals(expected, actual);
+
+    }
+
+
 }
