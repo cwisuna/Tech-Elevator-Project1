@@ -1,2 +1,0 @@
-java.text.SimpleDateFormat@fa28f760FEED MONEY: $5.0 5.0
-java.text.SimpleDateFormat@fa28f760FEED MONEY: $2.0 2.0

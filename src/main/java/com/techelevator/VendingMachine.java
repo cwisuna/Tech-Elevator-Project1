@@ -142,7 +142,7 @@ public class VendingMachine{
 		}
 	}
 //	public void salesReport(Purchase customerPurchase, Item itemSelection){
-//		//Writing transaction log to Log.txt
+//		//Writing transaction log to Sales.txt
 //		File targetFile = new File("src", "SalesReport.txt");
 //
 //		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
