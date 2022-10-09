@@ -21,7 +21,6 @@ public class PurchaseTest {
         Purchase purchaseTest = new Purchase("B9", "Chris' Cookies", 4.99);
         purchaseTest.setCurrentMoneyProvided(0);
 
-
         //Arrange
         double money = 20.0;
 
