@@ -148,6 +148,8 @@ public class VendingMachine{
 						}
 					}
 
+
+					
 				} else if (choice.equals(MAIN_MENU_EXIT_OPTION)) {
 					System.exit(1);
 
