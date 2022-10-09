@@ -25,6 +25,7 @@ public class Item {
         } else {
             System.out.println("Sorry - This Item is Out of Stock" );
         }
+        System.out.println("You Purchased: " + itemSelection.getName());
         System.out.println(itemSelection.getSound());
     }
 
