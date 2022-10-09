@@ -12,8 +12,6 @@ public class Purchase extends Item {
 
     private static double currentMoneyProvided = 0;
     private String change = "";
-
-
     private static double quarter = .25;
     private static double dime = .10;
     private static double nickel = .05;
@@ -24,7 +22,7 @@ public class Purchase extends Item {
 
     // Methods for each option on the purchase menu screen in main
     public void feedMoney(double amountOfMoney) {
-        currentMoneyProvided += amountOfMoney;
+        this.currentMoneyProvided += amountOfMoney;
         writeFeedToFile(amountOfMoney);
         System.out.println("Total Balance: $" + currentMoneyAsString());
     }
@@ -131,15 +129,14 @@ public class Purchase extends Item {
 
     //getters
     public double getCurrentMoneyProvided() {
-        return this.getCurrentMoneyProvided();
+        return this.currentMoneyProvided;
     }
     public String getChange() {
         return this.change;
     }
     //setters
     public void setCurrentMoneyProvided(double money) {
-        this.currentMoneyProvided = currentMoneyProvided;
+        this.currentMoneyProvided = money;
     }
-
 
 }

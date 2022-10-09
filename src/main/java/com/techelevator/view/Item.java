@@ -3,7 +3,6 @@ package com.techelevator.view;
 import java.util.Map;
 
 public class Item {
-
     private String location;
     private String name;
     private double price;
@@ -15,7 +14,6 @@ public class Item {
         this.price = price;
         this.quantity = 5;
     }
-
 
 
     //called in the purchase method, subtracts quantity and prints sound
