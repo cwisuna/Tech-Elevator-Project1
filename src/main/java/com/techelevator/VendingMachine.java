@@ -24,9 +24,6 @@ public class VendingMachine{
 	private String itemName;
 	private String itemLocation;
 	private double itemCost;
-
-
-
 	public static Map<String, Item> vendingMachineMap = new LinkedHashMap<>();
 
 	private Menu menu;
@@ -76,9 +73,7 @@ public class VendingMachine{
 		} catch (FileNotFoundException e) {
 			System.out.println("Product list not found");
 		}
-
 	}
-
 
 	public void run() {
 
@@ -96,7 +91,6 @@ public class VendingMachine{
 					for (Map.Entry<String, Item> item : vendingMachineMap.entrySet()) {
 						System.out.println(item.getValue().toString().trim());
 					}
-
 
 				//if customer chooses purchase, purchase menu is shown to customer
 				} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
@@ -117,8 +111,6 @@ public class VendingMachine{
 							for (Map.Entry<String, Item> item : vendingMachineMap.entrySet()) {
 								System.out.println(item.getValue().getLocation() + "| " + item.getValue().getName() + " - $" + item.getValue().getPrice());
 							}
-
-							//Customer selects which item they want
 							System.out.println();
 							System.out.println("Total Balance: $" + customerPurchase.currentMoneyAsString());
 							System.out.print("Please choose a product: ");

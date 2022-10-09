@@ -33,7 +33,7 @@ public class Purchase extends Item {
             if (this.currentMoneyProvided >= itemSelection.getPrice()) {
                 this.currentMoneyProvided -= itemSelection.getPrice();
                 itemSelection.dispenseItem(itemSelection);
-                System.out.println("Remaining total: " + this.currentMoneyAsString());
+                System.out.println("Remaining total: $" + this.currentMoneyAsString());
 
             } else {
                 System.out.println("Insert More Money to Purchase Item");
@@ -48,7 +48,6 @@ public class Purchase extends Item {
         returnChange();
         System.out.println(getChange());
         setCurrentMoneyProvided(0);
-
     }
 
     public void returnChange() {
@@ -82,8 +81,7 @@ public class Purchase extends Item {
     }
 
     public String currentMoneyAsString() {
-        String returnCurrentMoneyProvided = String.format("%.2f", currentMoneyProvided);
-        return returnCurrentMoneyProvided;
+        return String.format("%.2f", currentMoneyProvided);
     }
 
 
