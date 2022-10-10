@@ -125,6 +125,21 @@ public class Purchase extends Item {
             System.out.println("File not found");
         }
     }
+//    public void salesReport(Purchase customerPurchase, Item itemSelection){
+//        //Writing transaction log to Sales.txt
+//        File targetFile = new File("src", "SalesReport.txt");
+//
+//        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
+//        String dateString = dateFormat.format(new Date()).toString();
+//
+//        try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
+//            writer.println(itemSelection.getName() + "| "
+//                    + itemSelection + " "
+//                    + customerPurchase.getCurrentMoneyProvided());
+//        } catch (FileNotFoundException e) {
+//            System.out.println("File not found");;
+//        }
+//    }
 
 
     //getters

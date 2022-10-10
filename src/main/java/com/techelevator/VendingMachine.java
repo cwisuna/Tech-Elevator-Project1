@@ -121,7 +121,7 @@ public class VendingMachine{
 							//Bring in Item class and assign Customer's Selection to Item
 							if (!vendingMachineMap.containsKey(chooseLocation)) {
 								System.out.println("That location is invalid, please try again.");
-								purchaseChoice.equals(menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS));
+//								purchaseChoice.equals(menu.getChoiceFromOptions(PURCHASE_MENU_OPTIONS));
 								continue;
 							}
 							Item itemSelection = vendingMachineMap.get(chooseLocation);
@@ -141,21 +141,6 @@ public class VendingMachine{
 			}
 		}
 	}
-//	public void salesReport(Purchase customerPurchase, Item itemSelection){
-//		//Writing transaction log to Sales.txt
-//		File targetFile = new File("src", "SalesReport.txt");
-//
-//		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss aa");
-//		String dateString = dateFormat.format(new Date()).toString();
-//
-//		try(PrintWriter writer = new PrintWriter(new FileOutputStream(targetFile, true))){
-//			writer.println(dateString + " " + itemSelection.getName() + " "
-//					+ itemSelection.getLocation() + " " + itemSelection.getPrice() + " "
-//					+ customerPurchase.getCurrentMoneyProvided());
-//		} catch (FileNotFoundException e) {
-//			System.out.println("File not found");;
-//		}
-//	}
 
 }
 
